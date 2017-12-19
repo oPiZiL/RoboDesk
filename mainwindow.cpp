@@ -333,13 +333,13 @@ void MainWindow::makeBox()
     TopoDS_Shape sh;
     const TopLoc_Location* toploc_location;
 
-    myIgesReader[0].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Base.IGS");
-    myIgesReader[1].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link1.IGS");
-    myIgesReader[2].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link2.IGS");
-    myIgesReader[3].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link3.IGS");
- //   myIgesReader[4].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link4.IGS");
- //   myIgesReader[5].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link5.IGS");
- //   myIgesReader[6].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link6.IGS");
+    myIgesReader[0].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Base.IGS");
+    myIgesReader[1].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link1.IGS");
+    myIgesReader[2].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link2.IGS");
+    myIgesReader[3].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link3.IGS");
+ //   myIgesReader[4].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link4.IGS");
+ //   myIgesReader[5].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link5.IGS");
+ //   myIgesReader[6].ReadFile ("C:/OCC_Qt/RoboDesk/IRB120/Link6.IGS");
 
     for(int i=0;i<4;i++)
     {
@@ -357,12 +357,13 @@ void MainWindow::makeBox()
 
     //anAisBox->SetColor(Quantity_NOC_AZURE);
     gp_Trsf trsf;
-    trsf.SetTransformation(gp_Quaternion(gp_Vec(1,0,0), 3.1415/3), gp_Vec(200*i,200*i,0));
+    trsf.SetTransformation(gp_Quaternion(gp_Vec(1,0,0), 3.1415/2), gp_Vec(0,0,0));
     toploc_location=new TopLoc_Location(trsf);
     const TopLoc_Location toploc_location1(trsf);
     //myOccView->getContext()->SetLocation(anAisBox,*toploc_location);
     //myOccView->getContext()->UpdateCurrentViewer();
 
+    sh.Move(*toploc_location);
     sh.Move(*toploc_location);
     anAisBox = new AIS_Shape(sh);
     myOccView->getContext()->Display(anAisBox);
@@ -375,22 +376,21 @@ void MainWindow::makeBox()
 
 void MainWindow::makeCone()
 {
-    gp_Ax2 anAxis;
-    anAxis.SetLocation(gp_Pnt(0.0, 10.0, 0.0));
+    TopoDS_Edge XEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(1000, 0.0, 0.0));
+    Handle(AIS_Shape) XEdge_handle = new AIS_Shape(XEdge);
+    XEdge_handle->SetColor(Quantity_NOC_RED);
 
-    TopoDS_Shape aTopoReducer = BRepPrimAPI_MakeCone(anAxis, 3.0, 1.5, 5.0).Shape();
-    Handle(AIS_Shape) anAisReducer = new AIS_Shape(aTopoReducer);
+    TopoDS_Edge YEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(0.0, 1000, 0.0));
+    Handle(AIS_Shape) YEdge_handle = new AIS_Shape(YEdge);
+    YEdge_handle->SetColor(Quantity_NOC_GREEN);
 
-    anAisReducer->SetColor(Quantity_NOC_BISQUE);
+    TopoDS_Edge ZEdge = BRepBuilderAPI_MakeEdge(gp_Pnt(0.0, 0.0, 0.0), gp_Pnt(0.0, 0.0, 1000));
+    Handle(AIS_Shape) ZEdge_handle = new AIS_Shape(ZEdge);
+    ZEdge_handle->SetColor(Quantity_NOC_BLUE1);
 
-    anAxis.SetLocation(gp_Pnt(8.0, 10.0, 0.0));
-    TopoDS_Shape aTopoCone = BRepPrimAPI_MakeCone(anAxis, 3.0, 0.0, 5.0).Shape();
-    Handle(AIS_Shape) anAisCone = new AIS_Shape(aTopoCone);
-
-    anAisCone->SetColor(Quantity_NOC_CHOCOLATE);
-
-    myOccView->getContext()->Display(anAisReducer);
-    myOccView->getContext()->Display(anAisCone);
+    myOccView->getContext()->Display(XEdge_handle);
+    myOccView->getContext()->Display(YEdge_handle);
+    myOccView->getContext()->Display(ZEdge_handle);
 }
 
 void MainWindow::makeSphere()
