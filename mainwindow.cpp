@@ -71,8 +71,10 @@
 #include <AIS_Shape.hxx>
 
 #include <gp_Trsf.hxx>
+#include <gp_Quaternion.hxx>
 #include <IGESControl_Reader.hxx>
 #include <QTreeWidget>
+#include <TopoDS_Shape.hxx>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -324,28 +326,48 @@ void MainWindow::makeBox()
 
 void MainWindow::makeBox()
 {
-    IGESControl_Reader myIgesReader;
+    IGESControl_Reader myIgesReader[6];
+    Handle(AIS_Shape) anAisBox;
     Standard_Integer nIgesFaces,nTransFaces;
+    Handle(TColStd_HSequenceOfTransient) myList;
+    TopoDS_Shape sh;
+    const TopLoc_Location* toploc_location;
 
-    myIgesReader.ReadFile ("C:/Users/kaveh/Desktop/OCC_Qt/RoboDesk/robot_model/base.IGS");
-    //loads file MyFile.igs
+    myIgesReader[0].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Base.IGS");
+    myIgesReader[1].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link1.IGS");
+    myIgesReader[2].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link2.IGS");
+    myIgesReader[3].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link3.IGS");
+ //   myIgesReader[4].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link4.IGS");
+ //   myIgesReader[5].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link5.IGS");
+ //   myIgesReader[6].ReadFile ("C:/Users/AN95540/Desktop/Extra/OCC_Qt/RoboDesk/IRB120/Link6.IGS");
 
-   Handle(TColStd_HSequenceOfTransient) myList =  myIgesReader.GiveList("iges-faces");
-   //selects all IGES faces in the file and puts them into a list  called //MyList,
-
-   //nIgesFaces = myList.Length();
-   nTransFaces = myIgesReader.TransferList(myList);
-   //translates MyList,
-
-   qDebug()<<"   Transferred:"<<nTransFaces<<endl;
-   TopoDS_Shape sh = myIgesReader.OneShape();
-   //and obtains the results in an OCCT shape.
-
-    Handle(AIS_Shape) anAisBox = new AIS_Shape(sh);
+    for(int i=0;i<4;i++)
+    {
+    //myList =  myIgesReader[i].GiveList("iges-faces");
+    //selects all IGES faces in the file and puts them into a list  called //MyList,
+    //nIgesFaces = myList.Length();
+    //qDebug()<<"   Transfring Link number: "<<i;
+    //nTransFaces = myIgesReader[i].TransferList(myList);
+    //translates MyList,
+    //qDebug()<<"   Transfring Done";
+    //qDebug()<<"   Transferred:"<<nTransFaces;
+     myIgesReader[i].TransferRoots();
+    sh = myIgesReader[i].OneShape();
+    //and obtains the results in an OCCT shape.
 
     //anAisBox->SetColor(Quantity_NOC_AZURE);
+    gp_Trsf trsf;
+    trsf.SetTransformation(gp_Quaternion(gp_Vec(1,0,0), 3.1415/3), gp_Vec(200*i,200*i,0));
+    toploc_location=new TopLoc_Location(trsf);
+    const TopLoc_Location toploc_location1(trsf);
+    //myOccView->getContext()->SetLocation(anAisBox,*toploc_location);
+    //myOccView->getContext()->UpdateCurrentViewer();
 
+    sh.Move(*toploc_location);
+    anAisBox = new AIS_Shape(sh);
     myOccView->getContext()->Display(anAisBox);
+    }
+
 }
 
 
