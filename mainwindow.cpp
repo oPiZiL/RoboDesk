@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui.setupUi(this);
     myOccView = new OccView(this);
+    myAIS_world = new AIS_world;
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(myOccView);
 

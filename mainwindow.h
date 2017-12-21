@@ -6,6 +6,7 @@
 #include <AIS_InteractiveContext.hxx>
 #include <actions.h>
 #include <menu.h>
+#include <occWorld.h>
 
 class OccView;
 class Menu;
@@ -25,6 +26,7 @@ private:
     OccView* myOccView;
     Actions * actions;
     Menu* menu;
+    AIS_world* myAIS_world;
 };
 
 #endif // MAINWINDOW_H

@@ -20,7 +20,8 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     occView.cpp \
     menu.cpp \
-    actions.cpp
+    actions.cpp \
+    occWorld.cpp
 
 CONFIG += c++11
 
@@ -29,7 +30,8 @@ HEADERS  += \
     occView.h \
     menu.h \
     actions.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    occWorld.h
 
 FORMS    += \
     mainwindow.ui

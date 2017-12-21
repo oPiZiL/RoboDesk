@@ -1,0 +1,11 @@
+#ifndef AIS_WORLD_H
+#define AIS_WORLD_H
+
+
+class AIS_world
+{
+public:
+    AIS_world();
+};
+
+#endif // AIS_WORLD_H
