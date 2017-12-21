@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(myOccView);
 
-    ui.widget->setLayout(layout);
+    ui.occwidget->setLayout(layout);
     //ui.centralWidget->layout()->addWidget(tree);
     actions = new Actions(myOccView);
     menu = new Menu(this, actions);

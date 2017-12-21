@@ -9,6 +9,7 @@
 #ifndef UI_MAINWINDOW_H
 #define UI_MAINWINDOW_H
 
+#include <QtCore/QLocale>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
@@ -47,7 +48,7 @@ public:
     QLabel *label;
     QSlider *horizontalSlider;
     QSpacerItem *horizontalSpacer;
-    QWidget *widget;
+    QWidget *occwidget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -57,6 +58,7 @@ public:
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
         MainWindow->resize(975, 557);
+        MainWindow->setLocale(QLocale(QLocale::English, QLocale::Canada));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -143,15 +145,15 @@ public:
 
         horizontalLayout->addItem(horizontalSpacer);
 
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QStringLiteral("widget"));
+        occwidget = new QWidget(centralWidget);
+        occwidget->setObjectName(QStringLiteral("occwidget"));
         QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(4);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(widget->sizePolicy().hasHeightForWidth());
-        widget->setSizePolicy(sizePolicy);
+        sizePolicy.setHeightForWidth(occwidget->sizePolicy().hasHeightForWidth());
+        occwidget->setSizePolicy(sizePolicy);
 
-        horizontalLayout->addWidget(widget);
+        horizontalLayout->addWidget(occwidget);
 
         horizontalLayout->setStretch(0, 10);
         horizontalLayout->setStretch(1, 1);
@@ -175,7 +177,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "RoboDesk", Q_NULLPTR));
         label_6->setText(QApplication::translate("MainWindow", "Joint 1", Q_NULLPTR));
         label_5->setText(QApplication::translate("MainWindow", "Joint 2", Q_NULLPTR));
         label_4->setText(QApplication::translate("MainWindow", "Joint 3", Q_NULLPTR));

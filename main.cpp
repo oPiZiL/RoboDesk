@@ -19,6 +19,8 @@ int main(int argc, char *argv[])
     */
 
     MainWindow w;
+    QApplication::setWindowIcon(QIcon("robodesk.ico"));
+    w.setIconSize(QSize(40,40));
     w.show();
 
     return a.exec();
