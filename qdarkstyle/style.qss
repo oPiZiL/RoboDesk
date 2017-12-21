@@ -27,7 +27,7 @@ QToolTip
     background-color: rgb(90, 102, 117);;
     color: white;
     padding: 5px;
-    opacity: 200;
+    opacity: 500;
 }
 
 QWidget

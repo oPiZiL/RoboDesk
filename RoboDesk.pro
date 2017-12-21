@@ -18,19 +18,26 @@ SOURCES += main.cpp \
     occView.cpp \
     main.cpp \
     mainwindow.cpp \
-    occView.cpp
+    occView.cpp \
+    menu.cpp \
+    actions.cpp
 
 CONFIG += c++11
 
 HEADERS  += \
     mainwindow.h \
-    occView.h
+    occView.h \
+    menu.h \
+    actions.h \
+    ui_mainwindow.h
 
 FORMS    += \
     mainwindow.ui
 
 RESOURCES += \
-    occqt.qrc
+    occqt.qrc \
+    qdarkstyle/style.qrc
+
 
 DEFINES +=  \
         WNT
@@ -112,32 +119,7 @@ LIBS +=         \
 -lTKXmlXCAF \
 -lTKXSBase
 
-SUBDIRS += \
-    RoboDesk.pro
-
-DISTFILES += \
-    Resources/box.png \
-    Resources/chamfer.png \
-    Resources/common.png \
-    Resources/cone.png \
-    Resources/cut.png \
-    Resources/cylinder.png \
-    Resources/extrude.png \
-    Resources/fillet.png \
-    Resources/FitAll.png \
-    Resources/fuse.png \
-    Resources/helix.png \
-    Resources/Home.png \
-    Resources/lamp.png \
-    Resources/loft.png \
-    Resources/Pan.png \
-    Resources/revolve.png \
-    Resources/Rotate.png \
-    Resources/sphere.png \
-    Resources/torus.png \
-    Resources/wedge.png \
-    Resources/Zoom.png \
-    Resources/base.IGS
+RC_FILE = robodesk.rc
 
 
 

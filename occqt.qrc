@@ -20,6 +20,8 @@
         <file>Resources/loft.png</file>
         <file>Resources/revolve.png</file>
         <file>Resources/helix.png</file>
-		<file>robot_model/base.IGS</file>
+		<file>Resources/robot.ico</file>
+		<file>Resources/coordinates.svg</file>
+		
     </qresource>
 </RCC>

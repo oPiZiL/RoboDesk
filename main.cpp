@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
-
+#include <QFile>
 
 #include <OSD_Environment.hxx>
 
@@ -10,6 +10,14 @@ int main(int argc, char *argv[])
     aShaderEnv.Build();
 
     QApplication a(argc, argv);
+
+    /*
+    QFile File(":qdarkstyle/style.qss");
+    File.open(QFile::ReadOnly);
+    QString StyleSheet = QLatin1String(File.readAll());
+    qApp->setStyleSheet(StyleSheet);
+    */
+
     MainWindow w;
     w.show();
 
